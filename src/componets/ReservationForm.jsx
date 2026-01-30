@@ -1,157 +1,122 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addReservation,
-  updateReservation,
-  fetchReservations,
-} from "../features/reservations/reservationSlice";
-import { fetchRooms } from "../features/rooms/roomSlice";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addReservation, updateReservation } from "../features/reservations/reservationSlice.js";
 import "./Reservation.css";
 
-const ReservationForm = ({ editData = null, onCancel }) => {
+const ReservationForm = ({ editData, onCancel }) => {
   const dispatch = useDispatch();
-  const { rooms } = useSelector((state) => state.rooms);
-
   const [form, setForm] = useState({
     guestName: "",
-    roomId: "",
+    roomType: "",
+    roomPrice: "",
     checkIn: "",
     checkOut: "",
   });
 
-  const [loading, setLoading] = useState(true);
-
-
   useEffect(() => {
-    dispatch(fetchRooms())
-      .unwrap()
-      .catch((err) => console.error("Failed to fetch rooms:", err))
-      .finally(() => setLoading(false));
-  }, [dispatch]);
+    if (editData) setForm({ ...editData });
+  }, [editData]);
 
-  
-  useEffect(() => {
-    if (editData) {
-      const room = rooms.find((r) => r.type === editData.roomType);
-      setForm({
-        guestName: editData.guestName,
-        roomId: room ? room.id : "",
-        checkIn: editData.checkIn,
-        checkOut: editData.checkOut,
-      });
-    }
-  }, [editData, rooms]);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { guestName, roomId, checkIn, checkOut } = form;
-
-    if (!guestName || !roomId || !checkIn || !checkOut) {
-      alert("Please fill in all fields");
-      return;
-    }
-
-    const room = rooms.find((r) => r.id === parseInt(roomId));
-    if (!room) {
-      alert("Selected room not found!");
-      return;
-    }
-
-    const reservationData = {
-      guestName,
-      roomType: room.type,
-      roomPrice: room.price,
-      checkIn,
-      checkOut,
-    };
-
-    if (editData) {
-     
-      dispatch(updateReservation({ id: editData.id, ...reservationData }));
-      alert("Reservation updated successfully!");
-      if (onCancel) onCancel(); 
+    if (form.id) {
+      dispatch(updateReservation(form));
+      if (onCancel) onCancel();
     } else {
-      
-      dispatch(addReservation({ id: Date.now(), ...reservationData }));
-      alert("Reservation added successfully!");
-      setForm({ guestName: "", roomId: "", checkIn: "", checkOut: "" });
+      dispatch(addReservation(form));
+      setForm({
+        guestName: "",
+        roomType: "",
+        roomPrice: "",
+        checkIn: "",
+        checkOut: "",
+      });
     }
-
-    dispatch(fetchReservations());
   };
 
   return (
-    <div className="reservation-container my-4">
-      <h2 className="text-center mb-4">
-        {editData ? "Edit Reservation" : "Make a Reservation"}
-      </h2>
+    <div className="reservation-container">
+      <div className="reservation-card">
+        <h2 className="form-title">{form.id ? "Edit Reservation" : "Add Reservation"}</h2>
 
-      <form className="reservation-card" onSubmit={handleSubmit}>
-        <input
-          className="form-control mb-3"
-          placeholder="Guest Name"
-          name="guestName"
-          value={form.guestName}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={handleSubmit} className="form-grid">
+          <div className="form-group">
+            <label>Guest Name</label>
+            <input
+              type="text"
+              name="guestName"
+              value={form.guestName}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Enter guest name"
+              required
+            />
+          </div>
 
-        <select
-          className="form-select mb-3"
-          name="roomId"
-          value={form.roomId}
-          onChange={handleChange}
-          disabled={loading || rooms.length === 0}
-          required
-        >
-          <option value="">-- Select Room --</option>
-          {rooms.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.type} - ₹{r.price}
-            </option>
-          ))}
-        </select>
+          <div className="form-group">
+            <label>Room Type</label>
+            <input
+              type="text"
+              name="roomType"
+              value={form.roomType}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Enter room type"
+              required
+            />
+          </div>
 
-        <input
-          type="date"
-          className="form-control mb-3"
-          name="checkIn"
-          value={form.checkIn}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="date"
-          className="form-control mb-3"
-          name="checkOut"
-          value={form.checkOut}
-          onChange={handleChange}
-          required
-        />
+          <div className="form-group">
+            <label>Room Price</label>
+            <input
+              type="number"
+              name="roomPrice"
+              value={form.roomPrice}
+              onChange={handleChange}
+              className="form-control"
+              placeholder="Enter room price"
+              required
+            />
+          </div>
 
-        <div className="d-flex gap-2">
-          <button
-            className="btn btn-primary w-100"
-            type="submit"
-            disabled={loading || rooms.length === 0}
-          >
-            {editData ? "Update Reservation" : loading ? "Loading Rooms..." : "Reserve"}
-          </button>
-          {editData && (
-            <button
-              type="button"
-              className="btn btn-secondary w-100"
-              onClick={onCancel}
-            >
-              Cancel
+          <div className="form-group">
+            <label>Check-In Date</label>
+            <input
+              type="date"
+              name="checkIn"
+              value={form.checkIn}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Check-Out Date</label>
+            <input
+              type="date"
+              name="checkOut"
+              value={form.checkOut}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="button-group">
+            <button type="submit" className="btn btn-primary">
+              {form.id ? "Update" : "Save"}
             </button>
-          )}
-        </div>
-      </form>
+            {form.id && (
+              <button type="button" className="btn btn-secondary" onClick={onCancel}>
+                Cancel
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

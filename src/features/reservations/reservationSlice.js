@@ -1,13 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const API_URL = "http://localhost:3000/reservations";
+import api from "../../api/apiInstance.js";
 
 
 export const fetchReservations = createAsyncThunk(
   "reservations/fetch",
   async () => {
-    const res = await axios.get(API_URL);
+    const res = await api.get("/reservations");
     return res.data;
   }
 );
@@ -15,16 +13,16 @@ export const fetchReservations = createAsyncThunk(
 
 export const addReservation = createAsyncThunk(
   "reservations/add",
-  async (reservation) => {
-    const res = await axios.post(API_URL, reservation);
+  async (data) => {
+    const res = await api.post("/reservations", data);
     return res.data;
   }
 );
 
 export const updateReservation = createAsyncThunk(
   "reservations/update",
-  async ({ id, data }) => {
-    const res = await axios.put(`${API_URL}/${id}`, data);
+  async (reservation) => {
+    const res = await api.patch(`/reservations/${reservation.id}`, reservation);
     return res.data;
   }
 );
@@ -33,30 +31,20 @@ export const updateReservation = createAsyncThunk(
 export const deleteReservation = createAsyncThunk(
   "reservations/delete",
   async (id) => {
-    await axios.delete(`${API_URL}/${id}`);
+    await api.delete(`/reservations/${id}`);
     return id;
   }
 );
 
 const reservationSlice = createSlice({
   name: "reservations",
-  initialState: {
-    reservations: [],
-    loading: false,
-    error: null
-  },
+  initialState: { reservations: [] },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchReservations.pending, (state) => { state.loading = true; })
       .addCase(fetchReservations.fulfilled, (state, action) => {
-        state.loading = false;
         state.reservations = action.payload;
       })
-      .addCase(fetchReservations.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
       .addCase(addReservation.fulfilled, (state, action) => {
         state.reservations.push(action.payload);
       })
