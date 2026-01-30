@@ -1,0 +1,62 @@
+
+.reservation-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+
+.reservation-card {
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.reservation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.reservation-card .form-control,
+.reservation-card .form-select {
+  margin-bottom: 1rem;
+}
+
+
+.reservation-card .btn-primary {
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  transition: transform 0.3s;
+}
+
+.reservation-card .btn-primary:hover {
+  transform: scale(1.05);
+}
+
+
+.reservation-table {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.reservation-table th {
+  background: #007bff;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.reservation-table tbody tr:hover {
+  background: #f1f7ff;
+  transition: 0.3s;
+}
+
+
+.btn-action {
+  border-radius: 50px;
+  padding: 0.3rem 0.7rem;
+}
