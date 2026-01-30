@@ -14,7 +14,7 @@
       "price": 3000,
       "capacity": 2,
       "available": true,
-      "image": ""
+      "image": "https://plus.unsplash.com/premium_photo-1661964402307-02267d1423f5?q=80&w=1073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": "2",
@@ -23,7 +23,7 @@
       "price": 5000,
       "capacity": 3,
       "available": true,
-      "image": ""
+      "image": "https://plus.unsplash.com/premium_photo-1661962495669-d72424626bdc?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": "3",
@@ -32,7 +32,7 @@
       "price": 2000,
       "capacity": 2,
       "available": true,
-      "image": ""
+      "image": "https://plus.unsplash.com/premium_photo-1661962340349-6ea59fff7e7b?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": "4",
@@ -41,7 +41,7 @@
       "price": 5500,
       "capacity": 4,
       "available": false,
-      "image": ""
+      "image": "https://plus.unsplash.com/premium_photo-1661963657190-ecdd1ca794f9?q=80&w=1129&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": "5",
@@ -50,53 +50,9 @@
       "price": 10000,
       "capacity": 5,
       "available": true,
-      "image": ""
-    },
-    {
-      "id": "6",
-      "roomNo": "106",
-      "type": "Single Room",
-      "price": 1500,
-      "capacity": 1,
-      "available": false,
-      "image": ""
-    },
-    {
-      "id": "7",
-      "roomNo": "107",
-      "type": "Double Room",
-      "price": 2500,
-      "capacity": 2,
-      "available": true,
-      "image": ""
-    },
-    {
-      "id": "8",
-      "roomNo": "108",
-      "type": "Honeymoon Suite",
-      "price": 7000,
-      "capacity": 2,
-      "available": true,
-      "image": ""
-    },
-    {
-      "id": "9",
-      "roomNo": "109",
-      "type": "Family Room",
-      "price": 4000,
-      "capacity": 4,
-      "available": true,
-      "image": ""
-    },
-    {
-      "id": "10",
-      "roomNo": "110",
-      "type": "Studio Room",
-      "price": 3500,
-      "capacity": 3,
-      "available": true,
-      "image": ""
+      "image": "https://plus.unsplash.com/premium_photo-1661938258255-ac0c52834c10?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
+   
   ],
   "reservations": []
 }
